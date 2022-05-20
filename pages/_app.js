@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Layout from "../components/Layout";
 import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
+import { Provider } from "react-redux";
+import store from "../app/store";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -11,9 +13,11 @@ function MyApp({ Component, pageProps }) {
   });
   return (
     <SessionProvider session={pageProps.session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </SessionProvider>
   );
 }

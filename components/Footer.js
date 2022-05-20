@@ -44,6 +44,7 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.div`
+  z-index: 2;
   display: flex;
   flex-direction: column;
   color: white;
@@ -55,8 +56,6 @@ const Container = styled.div`
   color: white;
   font-size: 14px;
   margin-left: 70px;
-  position: fixed;
-  bottom: 0;
 `;
 const FooterTop = styled.div`
   height: 40px;
