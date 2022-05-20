@@ -4,11 +4,19 @@ import { StarIcon, ChevronDoubleRightIcon } from "@heroicons/react/solid";
 import { BookmarkIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { AddToBasket } from "../../../app/slices/BasketSlice";
 import { useDispatch } from "react-redux";
+import { AddToBookmark } from "../../../app/slices/BookmarkSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const product = ({ product }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const alertUser = () => toast("Product added to your basket!");
   const addItemToBasket = () => {
     dispatch(AddToBasket(product));
+    alertUser();
+  };
+  const addItemToBookmark = () => {
+    dispatch(AddToBookmark(product));
   };
   const [prime, setPrime] = useState(false);
   useEffect(() => {
@@ -45,7 +53,11 @@ const product = ({ product }) => {
           <button onClick={addItemToBasket} className="amaz_btn">
             <ShoppingCartIcon className="text-white" /> Add to Basket
           </button>
-          <button className="border-0 bookmark_btn ml-3 ">
+          <button
+            onClick={addItemToBookmark}
+            className="border-0 bookmark_btn ml-3 "
+          >
+            <ToastContainer position="bottom-left" />
             <BookmarkIcon />
           </button>
         </ProductInfo>

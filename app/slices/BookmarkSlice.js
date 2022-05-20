@@ -4,14 +4,17 @@ const initialState = {
   items: [],
 };
 
-export const BookmarkSlice = createSlice({
+export const bookmarkSlice = createSlice({
   name: "bookmark",
   initialState,
   reducers: {
-    AddToBookmark: () => {},
+    AddToBookmark: (state, action) => {
+      state.items = [...state.items, action.payload];
+    },
     RemoveFromBookmark: () => {},
   },
 });
 
-export const { AddToBookmark, RemoveFromBookmark } = BookmarkSlice.actions;
+export const { AddToBookmark, RemoveFromBookmark } = bookmarkSlice.actions;
+export default bookmarkSlice.reducer;
 export const selectBookmarkItems = (state) => state.bookmark.items;

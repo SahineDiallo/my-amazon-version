@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import { selectBasketItems } from "../app/slices/BasketSlice";
+import { selectBookmarkItems } from "../app/slices/BookmarkSlice";
 import {
   HomeIcon,
   ShoppingCartIcon,
@@ -15,6 +16,7 @@ import { useSelector } from "react-redux";
 
 const SideNav = () => {
   const basketItems = useSelector(selectBasketItems);
+  const bookmarkItems = useSelector(selectBookmarkItems);
   const { data: session, status } = useSession();
   const authenticated = status === "authenticated";
   return (
@@ -32,7 +34,7 @@ const SideNav = () => {
         <HomeIcon />
         <IconWithCount>
           <BookmarkIcon />
-          <span className="nav__count">0</span>
+          <span className="nav__count">{bookmarkItems.length}</span>
         </IconWithCount>
         <IconWithCount>
           <ShoppingCartIcon />
