@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StarIcon, ChevronDoubleRightIcon } from "@heroicons/react/solid";
 import { BookmarkIcon, ShoppingCartIcon } from "@heroicons/react/outline";
+import { AddToBasket } from "../../../app/slices/BasketSlice";
+import { useDispatch } from "react-redux";
 
 const product = ({ product }) => {
+  const dispatch = useDispatch()
+  const addItemToBasket = () => {
+    dispatch(AddToBasket(product));
+  };
   const [prime, setPrime] = useState(false);
   useEffect(() => {
     const rand = Math.random() > 0.5;
@@ -36,7 +42,7 @@ const product = ({ product }) => {
             </div>
           )}
 
-          <button className="amaz_btn">
+          <button onClick={addItemToBasket} className="amaz_btn">
             <ShoppingCartIcon className="text-white" /> Add to Basket
           </button>
           <button className="border-0 bookmark_btn ml-3 ">

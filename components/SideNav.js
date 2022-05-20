@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSession } from "next-auth/react";
+import { selectBasketItems } from "../app/slices/BasketSlice";
 import {
   HomeIcon,
   ShoppingCartIcon,
@@ -10,8 +11,10 @@ import {
 } from "@heroicons/react/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const SideNav = () => {
+  const basketItems = useSelector(selectBasketItems);
   const { data: session, status } = useSession();
   const authenticated = status === "authenticated";
   return (
@@ -33,7 +36,7 @@ const SideNav = () => {
         </IconWithCount>
         <IconWithCount>
           <ShoppingCartIcon />
-          <span className="nav__count">0</span>
+          <span className="nav__count">{basketItems.length}</span>
         </IconWithCount>
         <ClockIcon />
       </IconSection>
