@@ -1,29 +1,41 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { StarIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 
 const SingleProduct = ({ product }) => {
-  const offert = Math.random() > 0.5;
+  const [bestSeller, setBestSeller] = useState(false);
+  useEffect(() => {
+    setBestSeller(Math.random() > 0.5);
+  }, []);
   return (
     <div className="pr-3 pt-3 pb-0 pl-0">
-      <Container data-aos="fade-up" className="rounded position-relative">
-        <Image
-          width={150}
-          height={150}
-          objectFit="contain"
-          src={product.image}
-          alt="p_img"
-        />
-        {offert && <span className="best_seller">Best seller</span>}
-        <small>{product.category}</small>
-        <ProductTitle>{product.title}</ProductTitle>
-        <PriceAndRating>
-          <span classname="flex-grow-1">${product.price}</span>
-          <StarIcon className="star mr-2" />
-          <span>{product.rating.rate}</span>
-        </PriceAndRating>
-      </Container>
+      <Link href="/products/[id]" as={`/products/${product.id}`}>
+        <Container data-aos="fade-up" className="rounded position-relative">
+          <Image
+            width={150}
+            height={150}
+            objectFit="contain"
+            src={product?.image}
+            alt="p_img"
+          />
+          {bestSeller && <span className="best_seller"> Best Seller </span>}
+          <small>{product?.category}</small>
+          <ProductTitle>{product?.title}</ProductTitle>
+          <PriceAndRating>
+            <span className="flex-grow-1">${product?.price}</span>
+            <div className="d-flex align-items-center">
+              {Array(Math.round(product?.rating.rate))
+                .fill()
+                .map((_, i) => (
+                  <StarIcon key={i} className="star" />
+                ))}
+              <span>{product?.rating.count} ratings</span>
+            </div>
+          </PriceAndRating>
+        </Container>
+      </Link>
     </div>
   );
 };
@@ -33,6 +45,7 @@ export default SingleProduct;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   justify-content: center;
   color: #131921;
   padding: 3px 15px 10px 15px;
@@ -54,6 +67,8 @@ const Container = styled.div`
     padding: 20px !important;
     border-radius: 4px;
   }
+  :hover {
+  transform: scale(1.1) !important;
 `;
 const ProductTitle = styled.div`
   font-weight: 700;
@@ -64,6 +79,7 @@ const ProductTitle = styled.div`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 40px;
 `;
 const PriceAndRating = styled.div`
   display: flex;
@@ -81,7 +97,7 @@ const PriceAndRating = styled.div`
   svg {
     widht: 20px;
     height: 20px;
-    margin-right: 10px;
+    margin-right: 0;
     color: #febd69 !important;
   }
 `;

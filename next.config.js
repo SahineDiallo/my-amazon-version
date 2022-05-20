@@ -5,6 +5,11 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["links.papareact.com", "fakestoreapi.com"],
+    domains: [
+      "links.papareact.com",
+      "fakestoreapi.com",
+      "lh3.googleusercontent.com",
+      "avatars.githubusercontent.com",
+    ],
   },
 };

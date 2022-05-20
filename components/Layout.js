@@ -18,8 +18,12 @@ const Layout = ({ children }) => {
       </Head>
       <main className="bg-transparent position-relative">
         <div className="main__container">
-          {routerPathname !== "/signin" && <HeaderNav />}
-          {routerPathname !== "/signin" && <SideNav />}
+          {routerPathname !== "/signin" && (
+            <>
+              <HeaderNav />
+              <SideNav />
+            </>
+          )}
           {children}
         </div>
         {routerPathname !== "/signin" && <Footer />}

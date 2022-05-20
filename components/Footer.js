@@ -51,10 +51,12 @@ const Container = styled.div`
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(70% - 70px);
+  width: calc(100% - 70px);
   color: white;
   font-size: 14px;
-  margin-left: calc(15% + 70px);
+  margin-left: 70px;
+  position: fixed;
+  bottom: 0;
 `;
 const FooterTop = styled.div`
   height: 40px;
@@ -64,11 +66,17 @@ const FooterTop = styled.div`
 `;
 const FooterBottom = styled.div`
   display: flex;
+  -webkit-box-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
+  -webkit-align-items: start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: start;
-  background-color: #232f3e;
+  background-color: #ebebeb;
   padding: 30px;
-  color: #c9c9c9;
+  color: #7e7e7e;
   line-height: 1.7;
   left: calc(15% + 70px);
 `;

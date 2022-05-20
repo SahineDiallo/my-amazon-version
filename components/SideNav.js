@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useSession } from "next-auth/react";
 import {
   HomeIcon,
   ShoppingCartIcon,
@@ -7,9 +8,12 @@ import {
   BookmarkIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
+import Image from "next/image";
 import Link from "next/link";
 
 const SideNav = () => {
+  const { data: session, status } = useSession();
+  const authenticated = status === "authenticated";
   return (
     <SideContainer>
       <Link href="/" passHref>
@@ -22,18 +26,32 @@ const SideNav = () => {
         </a>
       </Link>
       <IconSection>
-        <Link href="/" passHref>
-          <a>
-            <HomeIcon />
-          </a>
-        </Link>
-        <BookmarkIcon />
-        <ShoppingCartIcon />
+        <HomeIcon />
+        <IconWithCount>
+          <BookmarkIcon />
+          <span className="nav__count">0</span>
+        </IconWithCount>
+        <IconWithCount>
+          <ShoppingCartIcon />
+          <span className="nav__count">0</span>
+        </IconWithCount>
         <ClockIcon />
       </IconSection>
-      <UserSection>
-        <UserCircleIcon />
-        <span className="text-white">Hello</span>
+      <UserSection className={authenticated && "ml-3"}>
+        {authenticated ? (
+          <div className="flex-shrink-0 ml-3">
+            <Image
+              width={37}
+              height={37}
+              src={session.user.image}
+              object-fit="contain"
+              className="rounded-circle"
+            />
+          </div>
+        ) : (
+          <UserCircleIcon />
+        )}
+        {/* <span className="text-white">Hello</span> */}
       </UserSection>
     </SideContainer>
   );
@@ -58,6 +76,12 @@ const SideContainer = styled.div`
 
   img {
     object-fit: contain;
+    margin-top: 5px;
+  }
+  svg {
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer;
   }
 `;
 const IconSection = styled.div`
@@ -67,10 +91,17 @@ const IconSection = styled.div`
   justify-content: center;
   gap: 25px;
   margin-top: -30px;
+`;
+const UserSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   svg {
-    width: 25px !important;
-    height: 25px !important;
+    width: 35px !important;
+    height: 35px !important;
     cursor: pointer;
   }
 `;
-const UserSection = styled.div``;
+const IconWithCount = styled.div`
+  position: relative;
+`;

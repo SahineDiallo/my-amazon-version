@@ -3,13 +3,19 @@ import styled from "styled-components";
 import Image from "next/image";
 import { SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 const HeaderNav = () => {
+  const { data: session, status } = useSession();
+  const authenticated = status === "authenticated";
+  const router = useRouter();
   return (
     <Header className="sticky-md-top">
       <div className="top_inv__div"></div>
       <Container>
-        <Link href="" passHref>
+        <Link href="/" passHref>
           <a>
             <Image
               src="https://links.papareact.com/f90"
@@ -24,14 +30,28 @@ const HeaderNav = () => {
           <SearchInput />
           <SearchIcon className="s__icon" />
         </SearchArea>
-        <Link href="signin" passHref>
-          <a>
-            <SignInArea className="mt-2">
-              <OptionLineOne>Hello, Guest</OptionLineOne>
-              <OptionLineTwo>Sign In Here</OptionLineTwo>
-            </SignInArea>
-          </a>
-        </Link>
+        <SignInArea
+          onClick={
+            authenticated
+              ? signOut
+              : () =>
+                  router.push(
+                    {
+                      pathname: "/signin",
+                    },
+                    undefined,
+                    { shallow: true }
+                  )
+          }
+          className="mt-2 sign__area"
+        >
+          <OptionLineOne>
+            Hello,{authenticated ? session.user.name : "Guest"}
+          </OptionLineOne>
+          <OptionLineTwo>
+            {authenticated ? "Sign Out" : "Sign In Here"}
+          </OptionLineTwo>
+        </SignInArea>
       </Container>
     </Header>
   );
