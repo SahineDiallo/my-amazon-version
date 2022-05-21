@@ -66,8 +66,9 @@ const Container = styled.div`
     background: #fff !important;
     padding: 20px !important;
     border-radius: 4px;
+    margin-top: 20px;
   }
-  :hover {
+  :hover{
   transform: scale(1.1) !important;
 `;
 const ProductTitle = styled.div`

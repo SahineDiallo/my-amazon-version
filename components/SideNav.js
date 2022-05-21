@@ -13,36 +13,39 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const SideNav = () => {
+  const router = useRouter();
   const basketItems = useSelector(selectBasketItems);
+  const countItems = (arr) => {
+    return arr.reduce((total, item) => total + item.count, 0);
+  };
   const bookmarkItems = useSelector(selectBookmarkItems);
   const { data: session, status } = useSession();
   const authenticated = status === "authenticated";
   return (
     <SideContainer>
-      <Link href="/" passHref>
-        <a>
-          <img
-            src="https://www.freeiconspng.com/thumbs/amazon-icon/amazon-icon--socialmedia-iconset--uiconstock-0.png"
-            alt="amazon_small_logo"
-            width={40}
-          />
-        </a>
-      </Link>
+      <div onClick={() => router.push("/")}>
+        <img
+          src="https://www.freeiconspng.com/thumbs/amazon-icon/amazon-icon--socialmedia-iconset--uiconstock-0.png"
+          alt="amazon_small_logo"
+          width={40}
+        />
+      </div>
       <IconSection>
-        <HomeIcon />
-        <IconWithCount>
+        <HomeIcon onClick={() => router.push("/")} />
+        <IconWithCount onClick={() => router.push("/bookmark")}>
           <BookmarkIcon />
           <span className="nav__count">{bookmarkItems.length}</span>
         </IconWithCount>
-        <IconWithCount>
+        <IconWithCount onClick={() => router.push("/checkout")}>
           <ShoppingCartIcon />
-          <span className="nav__count">{basketItems.length}</span>
+          <span className="nav__count">{countItems(basketItems)}</span>
         </IconWithCount>
         <ClockIcon />
       </IconSection>
-      <UserSection className={authenticated && "ml-3"}>
+      <UserSection>
         {authenticated ? (
           <div className="flex-shrink-0 ml-3">
             <Image
@@ -56,7 +59,6 @@ const SideNav = () => {
         ) : (
           <UserCircleIcon />
         )}
-        {/* <span className="text-white">Hello</span> */}
       </UserSection>
     </SideContainer>
   );

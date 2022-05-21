@@ -44,7 +44,6 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.div`
-  z-index: 2;
   display: flex;
   flex-direction: column;
   color: white;
@@ -62,6 +61,7 @@ const FooterTop = styled.div`
   text-align: center;
   background-color: #131921;
   line-height: 40px;
+  z-index: 2;
 `;
 const FooterBottom = styled.div`
   display: flex;

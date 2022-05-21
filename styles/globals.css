@@ -28,7 +28,12 @@ a {
   transition: 0.2s ease background;
   font-size: 14px;
   border: 1px solid #fda128;
-  color: white;
+  color: #131921;
+  font-weight: 500;
+}
+.quantity {
+  font-weight: 700 !important;
+  margin-right: 10px;
 }
 .bookmark_btn {
   background-color: #131921;

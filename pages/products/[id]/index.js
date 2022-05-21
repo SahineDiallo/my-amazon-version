@@ -7,14 +7,17 @@ import { useDispatch } from "react-redux";
 import { AddToBookmark } from "../../../app/slices/BookmarkSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SingleProduct from "../../../components/SingleProduct";
 
-const product = ({ product }) => {
+const product = ({ product, allProducts }) => {
   const dispatch = useDispatch();
   const alertUser = () => toast("Product added to your basket!");
   const addItemToBasket = () => {
-    dispatch(AddToBasket(product));
+    const _product = { p_id: product.id, item: product, count: 1 };
+    dispatch(AddToBasket(_product));
     alertUser();
   };
+
   const addItemToBookmark = () => {
     dispatch(AddToBookmark(product));
   };
@@ -23,6 +26,11 @@ const product = ({ product }) => {
     const rand = Math.random() > 0.5;
     rand && setPrime(true);
   }, []);
+
+  // similar Products
+  const similarProducts = allProducts.filter(
+    (item) => item.category === product.category && item.id !== product.id
+  );
   return (
     <Container className="my-5">
       <ProductDetails className="row mr-0 ml-0 row-cols-sm-1 row-cols-md-2">
@@ -51,18 +59,24 @@ const product = ({ product }) => {
           )}
 
           <button onClick={addItemToBasket} className="amaz_btn">
-            <ShoppingCartIcon className="text-white" /> Add to Basket
+            <ShoppingCartIcon /> Add to Basket
           </button>
           <button
             onClick={addItemToBookmark}
             className="border-0 bookmark_btn ml-3 "
           >
-            <ToastContainer position="bottom-left" />
             <BookmarkIcon />
           </button>
+          <ToastContainer position="bottom-left" />
         </ProductInfo>
       </ProductDetails>
-      <SimilarProducts className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3"></SimilarProducts>
+        <h6 class="my-4"> You might also like </h6>
+      <SimilarProducts className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+        {similarProducts.map((product, i) => (
+        
+          <SingleProduct product={product} key={i} />
+        ))}
+      </SimilarProducts>
     </Container>
   );
 };
@@ -74,10 +88,13 @@ export const getStaticProps = async (context) => {
     `https://fakestoreapi.com/products/${context.params.id}`
   );
   const product = await response.json();
+  const allProductsRes = await fetch("https://fakestoreapi.com/products");
+  const allProducts = await allProductsRes.json();
 
   return {
     props: {
       product,
+      allProducts,
     },
   };
 };

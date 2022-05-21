@@ -9,9 +9,25 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     AddToBasket: (state, action) => {
-      state.items = [...state.items, action.payload];
+      const _index = state.items.findIndex(
+        (item) => item.p_id === action.payload.p_id
+      );
+      if (_index >= 0) {
+        state.items[_index].count += 1;
+        state.items = [...state.items];
+      } else {
+        state.items = [...state.items, action.payload];
+      }
     },
-    RemoveFromBasket: (state, action) => {},
+    RemoveFromBasket: (state, action) => {
+       const _index = state.items.findIndex(
+         (item) => item.p_id === action.payload.p_id
+       );
+       if (_index >= 0) {
+         state.items[_index].count > 0 && (state.items[_index].count -= 1);
+         state.items = [...state.items];
+       } 
+    },
   },
 });
 
