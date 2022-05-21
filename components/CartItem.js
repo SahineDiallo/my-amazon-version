@@ -30,7 +30,7 @@ const CartItem = ({ product }) => {
         <CartPrice className="d-flex align-items-center justify-content-between">
           <Currency
             className="price"
-            quantity={product.item.price}
+            quantity={product.item.price * product.count}
             currency="GBP"
           />
           <CartQuantity>
