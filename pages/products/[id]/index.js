@@ -8,10 +8,15 @@ import { AddToBookmark } from "../../../app/slices/BookmarkSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SingleProduct from "../../../components/SingleProduct";
+import { selectBookmarkItems } from "../../../app/slices/BookmarkSlice";
+import { useSelector } from "react-redux";
 
 const product = ({ product, allProducts }) => {
+  const bookmarkItems = useSelector(selectBookmarkItems);
+  const bookmarked = product in bookmarkItems;
   const dispatch = useDispatch();
   const alertUser = () => toast("Product added to your basket!");
+  const alertBookmark = () => toast("Product bookmarked successfully!");
   const addItemToBasket = () => {
     const _product = { p_id: product.id, item: product, count: 1 };
     dispatch(AddToBasket(_product));
@@ -20,6 +25,7 @@ const product = ({ product, allProducts }) => {
 
   const addItemToBookmark = () => {
     dispatch(AddToBookmark(product));
+    alertBookmark();
   };
   const [prime, setPrime] = useState(false);
   useEffect(() => {
@@ -65,15 +71,14 @@ const product = ({ product, allProducts }) => {
             onClick={addItemToBookmark}
             className="border-0 bookmark_btn ml-3 "
           >
-            <BookmarkIcon />
+            {bookmarked ? <CheckIcon /> : <BookmarkIcon />}
           </button>
           <ToastContainer position="bottom-left" />
         </ProductInfo>
       </ProductDetails>
-        <h6 class="my-4"> You might also like </h6>
+      <h6 class="my-4"> You might also like </h6>
       <SimilarProducts className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
         {similarProducts.map((product, i) => (
-        
           <SingleProduct product={product} key={i} />
         ))}
       </SimilarProducts>

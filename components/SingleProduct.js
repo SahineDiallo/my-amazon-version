@@ -12,7 +12,7 @@ const SingleProduct = ({ product }) => {
   return (
     <div className="pr-3 pt-3 pb-0 pl-0">
       <Link href="/products/[id]" as={`/products/${product.id}`}>
-        <Container data-aos="fade-up" className="rounded position-relative">
+        <Container data-aos="zoom-out" className="rounded position-relative">
           <Image
             width={150}
             height={150}

@@ -5,9 +5,13 @@ import { selectBasketItems } from "../app/slices/BasketSlice";
 import CartItem from "../components/CartItem";
 import { CheckIcon } from "@heroicons/react/outline";
 import Currency from "react-currency-formatter";
+import {useSession} from 'next-auth/react';
 
 const checkout = () => {
   const products = useSelector(selectBasketItems);
+  const {data: session, status} = useSession();
+  const authenticated = status === "authenticated";
+
   const totalPrice = products.reduce(
     (price, product) => price + product.item.price * product.count,
     0
@@ -49,7 +53,8 @@ const checkout = () => {
             <small>Number of Items: {countItems}</small>
           </div>
 
-          <button className="amazon__btn">Proceed to checkout</button>
+          <button disabled={!authenticated} className="amazon__btn">
+            {authenticated ? "Proceed to checkout" : "Please login to checkout"}</button>
         </Subtotal>
       </Container>
     </>
