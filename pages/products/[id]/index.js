@@ -76,7 +76,7 @@ const product = ({ product, allProducts }) => {
           <ToastContainer position="bottom-left" />
         </ProductInfo>
       </ProductDetails>
-      <h6 class="my-4"> You might also like </h6>
+      <h6 className="my-4"> You might also like </h6>
       <SimilarProducts className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
         {similarProducts.map((product, i) => (
           <SingleProduct product={product} key={i} />

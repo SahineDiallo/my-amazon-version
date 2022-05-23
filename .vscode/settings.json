@@ -1,6 +1,6 @@
 {
-    "editor.fontFamily": "Hasklig",
-    "editor.fontSize": 13,
+    "editor.fontFamily": "Monolisa",
+    "editor.fontSize": 12,
     "editor.letterSpacing": 0,
     "editor.lineHeight": 1.7,
     "json.schemas": [
@@ -72,5 +72,6 @@
     ],
     "editor.codeActionsOnSave": {
     
-    }
+    },
+    "editor.fontWeight": "normal"
 }

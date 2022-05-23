@@ -3,7 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import Currency from "react-currency-formatter";
 import { StarIcon } from "@heroicons/react/solid";
-import { AddToBasket, RemoveFromBasket } from "../app/slices/BasketSlice";
+import {
+  AddToBasket,
+  RemoveFromBasket,
+  DeleteFromBasket,
+} from "../app/slices/BasketSlice";
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ product }) => {
@@ -13,6 +17,9 @@ const CartItem = ({ product }) => {
   };
   const decrementItem = () => {
     dispatch(RemoveFromBasket(product));
+  };
+  const deleteFromBasket = () => {
+    dispatch(DeleteFromBasket(product.p_id));
   };
   return (
     <CartContainer className="bg-white d-flex align-items-center border-bottom-1">
@@ -35,9 +42,11 @@ const CartItem = ({ product }) => {
           />
           <CartQuantity>
             <MinusSmIcon onClick={decrementItem} />
-            <span className="quantity">{product.count}</span>
+            <span className="quantity">
+              {product.count === 0 ? deleteFromBasket() : product.count}
+            </span>
             <PlusSmIcon onClick={incrementItem} />
-            <TrashIcon />
+            <TrashIcon onClick={deleteFromBasket} />
           </CartQuantity>
         </CartPrice>
       </CartInfo>
