@@ -29,7 +29,6 @@ const checkout = () => {
       products: products,
       email: session.user.email,
     });
-    console.log("cehckout session ", checkoutSession);
     const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });

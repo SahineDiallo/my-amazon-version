@@ -9,10 +9,39 @@ body {
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif !important;
 }
+.success_container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+.position-relative .card-header p {
+    font-size: 13px;
+}
+.orders {
+  top: 3px;
+  right: 0;
+  width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.order_images {
+  width: 150px;
+  object-fit: contain;
+  margin-right: 15px;
+  height: 150px;
+}
+.success_container svg {
+  width: 40px;
+  margin-bottom: 10px;
+}
 main {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+.text-green {
+  color: rgb(2, 71, 2);
 }
 a {
   color: inherit !important;

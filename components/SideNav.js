@@ -25,7 +25,7 @@ const SideNav = () => {
   const { data: session, status } = useSession();
   const authenticated = status === "authenticated";
   return (
-    <SideContainer>
+    <SideContainer className="d-none d-md-flex">
       <div onClick={() => router.push("/")}>
         <img
           src="https://www.freeiconspng.com/thumbs/amazon-icon/amazon-icon--socialmedia-iconset--uiconstock-0.png"
