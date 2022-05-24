@@ -15,7 +15,7 @@ body {
   padding: 20px;
 }
 .position-relative .card-header p {
-    font-size: 13px;
+  font-size: 13px;
 }
 .orders {
   top: 3px;
@@ -201,4 +201,14 @@ a {
   font-weight: 600;
   font-size: 15px;
   color: #131921;
+}
+@media only screen and (max-width: 767px) {
+  .main__container {
+    width: 100% !important;
+    padding-left: 0;
+  }
+  main {
+    padding: 20px;
+    overflow: hidden;
+  }
 }

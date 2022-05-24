@@ -11,7 +11,7 @@ const Orders = ({
   items,
 }) => {
   return (
-    <div className="position-relative border rounded card">
+    <div className="position-relative border rounded card mb-2">
       <div className="card-header d-flex align-items-center gap-3">
         <div>
           <p className="fw-bold mb-1">ORDER PLACED</p>

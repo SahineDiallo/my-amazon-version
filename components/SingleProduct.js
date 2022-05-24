@@ -19,6 +19,7 @@ const SingleProduct = ({ product }) => {
             objectFit="contain"
             src={product?.image}
             alt="p_img"
+            className="mt-3"
           />
           {bestSeller && <span className="best_seller"> Best Seller </span>}
           <small>{product?.category}</small>

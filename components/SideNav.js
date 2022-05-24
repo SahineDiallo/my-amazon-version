@@ -43,7 +43,7 @@ const SideNav = () => {
           <ShoppingCartIcon />
           <span className="nav__count">{countItems(basketItems)}</span>
         </IconWithCount>
-        <ClockIcon />
+        <ClockIcon onClick={() => router.push("/orders")} />
       </IconSection>
       <UserSection>
         {authenticated ? (
